@@ -5,7 +5,7 @@ import VerificationModal from './VerificationModal';
 import VerificationBadge from './VerificationBadge';
 import LoadingSpinner from './LoadingSpinner';
 import CoupleLinkingModal from './CoupleLinkingModal';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../lib/supabase'; 
 
 const ProfilePage: React.FC = () => {
   const { currentUser, setCurrentUser, setIsAuthenticated, isPremium, upgradeToPermium } = useUser();
@@ -147,6 +147,7 @@ const ProfilePage: React.FC = () => {
         <div className="md:flex">
           {/* Sidebar */}
           <div className="md:w-1/4 border-r border-gray-200">
+
             <div className="p-6 text-center border-b border-gray-200">
               <div className="relative inline-block">
                 {currentUser.profilePicture ? (
@@ -255,7 +256,7 @@ const ProfilePage: React.FC = () => {
                   {/* Profile Picture Section */}
                   {isEditing && (
                     <div>
-                      <h3 className="text-lg font-medium text-gray-900 mb-2">Profile Picture</h3>
+
                       <div className="flex gap-3">
                         <input
                           type="text"
