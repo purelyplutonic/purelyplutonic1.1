@@ -50,7 +50,6 @@ const predefinedInterests = [
 ];
 
 const SignUpFlow: React.FC<SignUpFlowProps> = ({ onComplete }) => {
-  const { setCurrentUser, setIsAuthenticated } = useUser();
   const [step, setStep] = useState(1);
   const [userData, setUserData] = useState<Partial<User>>({
     id: Math.random().toString(36).substring(2, 9),
@@ -301,6 +300,7 @@ const SignUpFlow: React.FC<SignUpFlowProps> = ({ onComplete }) => {
             {signUpError}
           </div>
         )}
+
         
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-purple-600">Purely Plutonic</h1>
@@ -532,25 +532,24 @@ const SignUpFlow: React.FC<SignUpFlowProps> = ({ onComplete }) => {
                 />
               </div>
 
-
-              <div className="mb-4">
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                  Create Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  value={userData.password}
-                  onChange={(e) => handlePasswordChange(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500"
-                  placeholder="Create a secure password"
-                />
-                {userData.password && userData.password.length < 6 && (
-                  <p className="text-xs text-amber-600 mt-1">
-                    Password must be at least 6 characters
-                  </p>
-                )}
-              </div>
+<div className="mb-4">
+  <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+    Create Password
+  </label>
+  <input
+    type="password"
+    id="password"
+    value={userData.password}
+    onChange={(e) => handlePasswordChange(e.target.value)}
+    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+    placeholder="Create a secure password"
+  />
+  {userData.password && userData.password.length < 6 && (
+    <p className="text-xs text-amber-600 mt-1">
+      Password must be at least 6 characters
+    </p>
+  )}
+</div>
 
               <div className="mb-4">
                 <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">

@@ -11,7 +11,10 @@ const ProfilePage: React.FC = () => {
   const { currentUser, setCurrentUser, setIsAuthenticated, isPremium, upgradeToPermium } = useUser();
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState(currentUser);
-  const [activeSection, setActiveSection] = useState<'profile' | 'settings' | 'subscription' | 'help'>('profile');
+  const [activeSection, setActiveSection] = useState<
+  'profile' | 'settings' | 'subscription' | 'help'
+>('profile');
+
   const [isLoading, setIsLoading] = useState(!currentUser);
   const [profilePictureUrl, setProfilePictureUrl] = useState('');
   const [showVerificationModal, setShowVerificationModal] = useState(false);
@@ -187,7 +190,6 @@ const ProfilePage: React.FC = () => {
                 </div>
               )}
             </div>
-            
             <nav className="p-4">
               <button
                 onClick={() => setActiveSection('profile')}
@@ -235,7 +237,6 @@ const ProfilePage: React.FC = () => {
               </button>
             </nav>
           </div>
-          
           {/* Main Content */}
           <div className="md:w-3/4 p-6">
             {activeSection === 'profile' && (
@@ -253,93 +254,25 @@ const ProfilePage: React.FC = () => {
                 <div className="space-y-6">
                   {/* Profile Picture Section */}
                   {isEditing && (
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <h3 className="text-lg font-medium text-gray-900 mb-3">Profile Picture</h3>
-                      <div className="flex items-center">
-                        <div className="mr-4">
-                          {editedUser.profilePicture ? (
-                            <div className="relative">
-                              <img 
-                                src={editedUser.profilePicture} 
-                                alt={editedUser.name} 
-                                className="h-24 w-24 rounded-full object-cover"
-                              />
-                              <button
-                                onClick={() => setEditedUser({...editedUser, profilePicture: undefined})}
-                                className="absolute -top-2 -right-2 bg-red-100 text-red-600 rounded-full p-1 hover:bg-red-200 focus:outline-none"
-                              >
-                                &times;
-                              </button>
-                            </div>
-                          ) : (
-                            <div className="h-24 w-24 rounded-full bg-gray-200 flex items-center justify-center">
-                              <Camera className="h-8 w-8 text-gray-400" />
-                            </div>
-                          )}
-                        </div>
-                        <div className="flex-1">
-                      </div><div className="flex-1">
-  <label className="block w-full cursor-pointer">
-    <div className="flex items-center justify-center px-4 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700">
-      Choose Profile Photo
-    </div>
-    <input
-      type="file"
-      accept="image/*"
-      className="hidden"
-      onChange={(e) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          updateProfilePicture(reader.result as string);
-        };
-        reader.readAsDataURL(file);
-      }}
-    />
-  </label>
-
-  <p className="text-xs text-gray-500 mt-2 text-center">
-    Choose a photo from your device
-  </p>
-</div>
-
-                    </div>
-                  
-                  
-                  {/* Basic Info Section */}
-                  <div>
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Basic Information</h3>
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <p className="text-sm font-medium text-gray-500">Name</p>
-                          <p className="text-base text-gray-900">{currentUser.name}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-gray-500">Social Style</p>
-                          <p className="text-base text-gray-900 capitalize">{currentUser.socialStyle}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-gray-500">Gender</p>
-                          <p className="text-base text-gray-900">
-                            {currentUser.gender && currentUser.gender.length > 0 
-                              ? currentUser.gender.join(', ') 
-                              : 'Not specified'}
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-gray-500">Looking to Meet</p>
-                          <p className="text-base text-gray-900">
-                            {currentUser.lookingToMeet && currentUser.lookingToMeet.length > 0 
-                              ? currentUser.lookingToMeet.join(', ') 
-                              : 'Not specified'}
-                          </p>
-                        </div>
+                    <div>
+                      <h3 className="text-lg font-medium text-gray-900 mb-2">Profile Picture</h3>
+                      <div className="flex gap-3">
+                        <input
+                          type="text"
+                          value={profilePictureUrl}
+                          onChange={(e) => setProfilePictureUrl(e.target.value)}
+                          placeholder="Enter profile picture URL"
+                          className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+                        />
+                        <button
+                          onClick={handleProfilePictureSubmit}
+                          className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700"
+                        >
+                          Update
+                        </button>
                       </div>
                     </div>
-                  </div>
+                  )}
                   
                   {/* Headline Section */}
                   <div>
@@ -426,16 +359,16 @@ const ProfilePage: React.FC = () => {
                       )}
                     </div>
                   </div>
-                </div>
-          
-            
-            {activeSection === 'settings' && (
-              <>
-                <div className="mb-6">
-                  <h2 className="text-2xl font-semibold text-gray-900">Settings</h2>
-                </div>
-                
-                <div className="space-y-6">
+      </div>
+    </>
+  )}
+  {activeSection === 'settings' && (
+<>
+  <div className="mb-6">
+    <h2 className="text-2xl font-semibold text-gray-900">Settings</h2>
+  </div>
+  
+  <div className="space-y-6">
                   <div>
                     <h3 className="text-lg font-medium text-gray-900 mb-4">Account Settings</h3>
                     <div className="space-y-4">
@@ -572,17 +505,17 @@ const ProfilePage: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                </div>
-              </>
-            )}
-            
-            {activeSection === 'subscription' && (
-              <>
-                <div className="mb-6">
-                  <h2 className="text-2xl font-semibold text-gray-900">Subscription</h2>
-                </div>
-                
-                <div className="bg-gray-50 rounded-lg p-6 mb-6">
+    </div>
+  </>
+)}
+
+{activeSection === 'subscription' && (
+  <>
+    <div className="mb-6">
+      <h2 className="text-2xl font-semibold text-gray-900">Subscription</h2>
+    </div>
+    
+    <div className="bg-gray-50 rounded-lg p-6 mb-6">
                   <div className="flex items-start">
                     <div className="flex-shrink-0">
                       <CreditCard className="h-6 w-6 text-purple-600" />
