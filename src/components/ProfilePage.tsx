@@ -306,7 +306,7 @@ const ProfilePage: React.FC = () => {
 </div>
 
                     </div>
-                  )}
+                  
                   
                   {/* Basic Info Section */}
                   <div>
