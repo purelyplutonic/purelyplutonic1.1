@@ -369,33 +369,38 @@ const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
                     </div>
                   )}
                   
-                  {!userData.profilePicture && (
-                    <div className="w-full">
-                      <div className="flex">
-                        <input
-                          type="text"
-                          value={profilePictureUrl}
-                          onChange={(e) => setProfilePictureUrl(e.target.value)}
-                          className="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus: ring-purple-500 focus:border-purple-500"
-                          placeholder="Enter image URL..."
-                        />
-                        <button
-                          type="button"
-                          onClick={handleProfilePictureSubmit}
-                          className="px-4 py-2 bg-purple-600 text-white rounded-r-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                        >
-                          Add
-                        </button>
-                      </div>
-                      <p className="text-xs text-gray-500 mt-1">
-                        Enter a URL for your profile picture
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
+{!userData.profilePicture && (
+  <div className="w-full">
+    <label className="block w-full cursor-pointer">
+      <div className="flex items-center justify-center px-4 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700">
+        Choose Profile Photo
+      </div>
+      <input
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setUserData({
+              ...userData,
+              profilePicture: reader.result as string
+            });
+          };
+          reader.readAsDataURL(file);
+        }}
+      />
+    </label>
+
+    <p className="text-xs text-gray-500 mt-2 text-center">
+      Choose a photo from your device
+    </p>
+  </div>
+)}
+
 
           {step === 4 && (
             <div>
