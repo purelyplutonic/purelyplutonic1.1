@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useUser } from '../context/UserContext';
-import { Edit, LogOut, Settings, CreditCard, Bell, Shield, HelpCircle, Loader, Camera, Star, Heart } from 'lucide-react';
+import { Edit, LogOut, Settings, CreditCard, Bell, Shield, HelpCircle, Star, Heart } from 'lucide-react';
 import VerificationModal from './VerificationModal';
 import VerificationBadge from './VerificationBadge';
 import LoadingSpinner from './LoadingSpinner';

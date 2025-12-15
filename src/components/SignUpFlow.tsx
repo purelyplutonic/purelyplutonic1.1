@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, useUser } from '../context/UserContext';
+import { User } from '../context/UserContext';
 import { ArrowLeft, ArrowRight, Check, Upload } from 'lucide-react';
 import { createUserProfile, signUp } from '../lib/supabase';
 
@@ -49,7 +49,7 @@ const predefinedInterests = [
   "Pets", "Dogs", "Cats", "Horseback Riding", "Animal Rescue", "Wildlife Conservation", "Exotic Animals"
 ];
 
-const SignUpFlow: React.FC<SignUpFlowProps> = ({ onComplete }) => {
+const SignUpFlow: React.FC<SignUpFlowProps> = () => {
   const [step, setStep] = useState(1);
   const [userData, setUserData] = useState<Partial<User>>({
     id: Math.random().toString(36).substring(2, 9),
